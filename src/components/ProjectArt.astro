@@ -1,0 +1,23 @@
+---
+import type { Project } from '../data/projects';
+interface Props { project: Project; large?: boolean }
+const { project, large = false } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<div class:list={['project-art', project.color, { 'art-large': large, 'has-image': project.image }]}>
+  {project.image ? (
+    <div class="browser-frame">
+      <div class="browser-bar"><span class="window-dots">● ● ●</span><span>Лёд и пламя / Главная</span><span>↗</span></div>
+      <img src={`${base}/images/${project.image}`} alt="Реальный экран сайта игры «Лёд и пламя»: первый экран" loading="lazy" width="1440" height="1050" />
+    </div>
+  ) : (
+    <>
+      <span class="art-caption">{project.category === 'Приложения' ? 'PRODUCT SYSTEM' : 'WEB EXPERIENCE'}</span>
+      <div class="art-emblem" aria-hidden="true">{project.mark}</div>
+      <div class="art-flow" aria-label="Схема продукта">
+        {project.nodes.map((node, i) => <><span>{node}</span>{i < 2 && <b aria-hidden="true">↗</b>}</>)}
+      </div>
+      <span class="art-note">Схема продукта</span>
+    </>
+  )}
+</div>

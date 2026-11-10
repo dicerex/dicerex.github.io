@@ -1,0 +1,61 @@
+---
+import '@fontsource-variable/manrope';
+import '@fontsource-variable/jetbrains-mono';
+import '../styles/global.css';
+interface Props { title?: string; description?: string }
+const { title = 'Александр Алексеев — разработчик полного цикла', description = 'Node.js, TypeScript, мобильные приложения и веб-системы. Разработка и сопровождение цифровых продуктов с 2015 года.' } = Astro.props;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const root = `${base}/`;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefined;
+---
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f3f2ed" />
+    <meta name="description" content={description} />
+    <title>{title}</title>
+    <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    {Astro.site && <meta property="og:image" content={new URL(`${base}/images/social.png`, Astro.site).href} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    <script is:inline>
+      try { if (localStorage.getItem('portfolio-theme') === 'dark') document.documentElement.dataset.theme = 'dark'; } catch {}
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#main">К содержимому</a>
+    <header class="site-header shell">
+      <a class="brand" href={root} aria-label="Александр Алексеев — главная"><span class="brand-symbol">а<span>а</span><i>.</i></span><span class="brand-name">Александр<br />Алексеев</span></a>
+      <nav aria-label="Главная навигация">
+        <a href={`${root}#work`}>Проекты</a><a href={`${root}#about`}>Подход</a><a href={`${root}#lab`}>Личное</a>
+      </nav>
+      <div class="header-actions"><button class="theme-toggle" type="button" aria-label="Включить тёмную тему" title="Сменить тему"><span aria-hidden="true">◐</span></button><a class="header-contact" href="mailto:desidaraiy@gmail.com">Обсудить задачу <span aria-hidden="true">↗</span></a></div>
+    </header>
+    <main id="main"><slot /></main>
+    <footer class="site-footer shell">
+      <a class="footer-name" href={root}>Александр Алексеев<span>Разработчик полного цикла</span></a>
+      <span class="footer-note">Иркутск · Работаю удалённо</span>
+      <a href="#main">Наверх ↑</a>
+    </footer>
+    <script>
+      const button = document.querySelector<HTMLButtonElement>('.theme-toggle');
+      function updateLabel() {
+        button?.setAttribute('aria-label', document.documentElement.dataset.theme === 'dark' ? 'Включить светлую тему' : 'Включить тёмную тему');
+      }
+      updateLabel();
+      button?.addEventListener('click', () => {
+        const dark = document.documentElement.dataset.theme !== 'dark';
+        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+        try { localStorage.setItem('portfolio-theme', dark ? 'dark' : 'light'); } catch {}
+        updateLabel();
+      });
+    </script>
+  </body>
+</html>
