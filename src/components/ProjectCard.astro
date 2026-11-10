@@ -11,7 +11,7 @@ const en = projectEnglish[project.slug];
     <div class="project-meta"><span class="mono">{String(index + 1).padStart(2, '0')} / <T ru={project.kind} en={en.kind} /></span></div>
     <h3><T ru={project.name} en={en.name} /></h3>
     <p class="project-description"><T ru={project.description} en={en.description} /></p>
-    <div class="project-purpose"><p class="eyebrow"><T k="context" /></p><p><T ru={project.context} en={en.context} /></p></div>
+    <div class="project-contribution"><p class="eyebrow"><T k="contribution" /></p><p><T ru={project.contribution} en={en.contribution} /></p></div>
     <details class="project-details" id={`details-${project.slug}`}><summary><T k="details" /><span aria-hidden="true">+</span></summary><div class="project-details-body">
       <ul class="tags" aria-label="Технологии" data-en-aria-label="Technologies">{project.stack.map(tag => <li>{tag}</li>)}</ul>
       <div class="project-parts">{project.system.map((part, i) => <section><span class="mono">0{i + 1}</span><div><h4><T ru={part.title} en={en.system[i].title} /></h4><p><T ru={part.text} en={en.system[i].text} /></p></div></section>)}</div>

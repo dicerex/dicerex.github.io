@@ -13,6 +13,7 @@ export type Project = {
   kind: string;
   subtitle: string;
   description: string;
+  contribution: string;
   stack: string[];
   color: string;
   mark: string;
@@ -29,21 +30,23 @@ export const projects: Project[] = [
     slug: 'amelia', name: 'Amelia', category: 'Приложения', kind: 'Мобильный цветочный магазин',
     subtitle: 'Магазин в телефоне. Управление — в браузере.',
     description: 'Цветочный магазин в телефоне: букеты, категории и корзина. За приложением — API и инструменты управления магазином.',
-    stack: ['Flutter', 'TypeScript', 'Express', 'Prisma', 'Vue'],
+    contribution: 'Восстановил приложение, заброшенное на несколько лет, и запустил его на iOS и Android. Затем развивал функциональность и занимался публикацией в App Store и Google Play.',
+    stack: ['Flutter', 'Dart', 'iOS', 'Android'],
     color: 'rose', mark: 'a.', nodes: ['Приложение', 'API магазина', 'Админка'],
     context: 'Помочь покупателю выбрать букет в приложении, а сотрудникам — работать с каталогом и заказами через административную панель. Мобильную и внутреннюю части связывает серверный API.',
     screenshots: [{ src: 'projects/amelia/01-catalog.webp', width: 562, height: 1280, alt: { ru: 'Amelia: каталог букетов с ценами и категориями', en: 'Amelia: bouquet catalogue with prices and categories' }, caption: { ru: 'Мобильное приложение — каталог букетов', en: 'Mobile app — bouquet catalogue' } }],
     system: [
-      { title: 'Мобильный клиент', text: 'Flutter-приложение — пользовательская часть магазина для мобильных устройств.' },
-      { title: 'Серверная часть', text: 'API на Express и TypeScript. Prisma связывает серверную модель с базой данных.' },
-      { title: 'Управление магазином', text: 'Отдельное веб-приложение на Vue для административных сценариев.' },
+      { title: 'Восстановление проекта', text: 'Разобрал зависимости после незавершённого рефакторинга, заменил несовместимые библиотеки и исправил типизацию.' },
+      { title: 'iOS и Android', text: 'Восстановил сборку и запуск Flutter-приложения на обеих платформах.' },
+      { title: 'Развитие и публикации', text: 'Добавлял новые функции и сопровождал публикации приложения в App Store и Google Play.' },
     ],
   },
   {
     slug: 'vratarnitsa', name: 'Вратарница', category: 'Приложения', kind: 'Сайт и мобильный сервис прихода',
     subtitle: 'Сайт, приложение и управление в одной системе.',
     description: 'Цифровой сервис прихода: информация о храме, молитвослов, подача записок и пожертвования. Сайт и мобильный интерфейс связаны с общей системой.',
-    stack: ['Nuxt', 'Vue', 'Node.js', 'TypeScript', 'MySQL'],
+    contribution: 'Самостоятельно разработал сайт, административную панель, серверную часть и мобильное приложение. Опубликовал приложение в App Store и Google Play, подключил онлайн-оплату и подписки на пожертвования.',
+    stack: ['Nuxt', 'Vue', 'Flutter', 'Capacitor', 'Node.js', 'TypeScript', 'MySQL'],
     color: 'sand', mark: 'В', nodes: ['Сайт и клиент', 'Серверный API', 'Управление'],
     context: 'Сделать информацию и сервисы прихода доступными с компьютера и телефона. Посетитель может познакомиться с храмом и перейти к нужному действию; сервер и административная панель связывают интерфейсы с внутренней работой продукта.',
     screenshots: [
@@ -51,44 +54,47 @@ export const projects: Project[] = [
       { src: 'projects/vratarnitsa/02-mobile.webp', width: 358, height: 775, alt: { ru: 'Вратарница: мобильная версия сайта с навигацией', en: 'Vratarnitsa: mobile layout and navigation' }, caption: { ru: 'Мобильная версия — те же сервисы на узком экране', en: 'Mobile layout — the same services on a smaller screen' } },
     ],
     system: [
-      { title: 'Веб-интерфейс', text: 'Nuxt и Vue используются для пользовательской части продукта.' },
-      { title: 'Мобильное направление', text: 'В проекте есть мобильные клиенты на Flutter и Capacitor — разные этапы развития продукта.' },
-      { title: 'Общий сервер', text: 'Node.js, Express и TypeScript; MySQL и Sequelize для работы с данными. Административная панель работает с API.' },
+      { title: 'Полный цикл разработки', text: 'Без участия других разработчиков создал сайт, административную панель, серверный API и мобильное приложение.' },
+      { title: 'Мобильный релиз', text: 'Довёл приложение до публикации в App Store и Google Play. В проекте использовались Flutter и Capacitor на разных этапах развития.' },
+      { title: 'Платежи и подписки', text: 'Интегрировал онлайн-оплату и систему подписок на пожертвования.' },
     ],
   },
   {
     slug: 'save', name: 'Сэйв', category: 'Приложения', kind: 'Сервис охранного предприятия',
     subtitle: 'Связь клиента с сервисом — в приложении.',
     description: 'Приложение охранного сервиса: доступ по PIN-коду, объекты, события и связь с компанией. Для сотрудников — административная панель.',
-    stack: ['Flutter', 'PHP', 'Node.js', 'Socket.IO', 'Nuxt'],
+    contribution: 'Спроектировал дизайн и разработал мобильное приложение на Flutter. Спроектировал серверную чат-систему со службой поддержки и интегрировал её в приложение.',
+    stack: ['Flutter', 'Dart', 'Node.js', 'TypeScript', 'Socket.IO'],
     color: 'blue', mark: 'S', nodes: ['Клиент', 'API и чат', 'Оператор'],
     screenshots: [{ src: 'projects/save/01-sign-in.webp', width: 562, height: 1280, alt: { ru: 'Сэйв.info: экран входа по PIN-коду', en: 'Save.info: PIN sign-in screen' }, caption: { ru: 'Мобильное приложение — вход по PIN-коду', en: 'Mobile app — PIN sign-in' } }],
     context: 'Приложение связывает клиента с охранным сервисом. За мобильным интерфейсом стоят серверные сценарии, работа с объектами и инструменты для сотрудников.',
     system: [
-      { title: 'Приложение клиента', text: 'Flutter-клиент с уведомлениями и интеграцией с серверной частью.' },
-      { title: 'Серверное развитие', text: 'В системе сочетаются PHP API и отдельный сервис чата на Node.js и TypeScript.' },
-      { title: 'Инструменты сотрудников', text: 'Веб-панель на Nuxt и обмен сообщениями через Socket.IO.' },
+      { title: 'Дизайн приложения', text: 'Самостоятельно спроектировал визуальную часть мобильного приложения.' },
+      { title: 'Разработка на Flutter', text: 'Реализовал мобильный клиент на Flutter и связал его с серверной частью.' },
+      { title: 'Чат поддержки', text: 'Спроектировал серверную чат-систему на Node.js и TypeScript с обменом сообщениями через Socket.IO и внедрил её в приложение.' },
     ],
   },
   {
     slug: 'godendo', name: 'ГоденДо', category: 'Приложения', kind: 'Каталог скидок поблизости',
     subtitle: 'Предложения магазинов — в одном приложении.',
     description: 'Мобильный каталог товаров со скидками: категории, поиск, цены и расстояние до магазина. Рядом — избранное и список покупок.',
-    stack: ['Flutter', 'Dart', 'Nuxt', 'Vue'],
+    contribution: 'Спроектировал дизайн, разработал мобильное приложение на Flutter и интегрировал серверную часть.',
+    stack: ['Flutter', 'Dart'],
     color: 'mint', mark: 'Г', nodes: ['Предложения', 'Магазины', 'Покупатель'],
     context: 'Помочь человеку увидеть предложения магазинов поблизости и выбрать, куда пойти за покупками. В карточках видны товар, скидка, цена, магазин и расстояние; категории и поиск помогают ориентироваться в каталоге.',
     screenshots: [{ src: 'projects/godendo/01-discounts.webp', width: 540, height: 1204, alt: { ru: 'ГоденДо: товары со скидками, цены и расстояния до магазинов', en: 'GodenDo: discounted products, prices, and distances to stores' }, caption: { ru: 'Мобильное приложение — предложения магазинов', en: 'Mobile app — offers from nearby stores' } }],
     system: [
-      { title: 'Каталог на телефоне', text: 'Flutter-приложение с товарами, магазинами и категориями. На первом экране — предложения со скидками.' },
-      { title: 'Выбор и планирование', text: 'Карточки показывают цену и магазин. В исходниках предусмотрены избранное, список покупок и работа с геолокацией.' },
-      { title: 'Административная часть', text: 'Веб-панель на Nuxt и Vue для работы с каталогом, товарами и магазинами.' },
+      { title: 'Дизайн', text: 'Спроектировал интерфейс мобильного каталога товаров и предложений магазинов.' },
+      { title: 'Мобильное приложение', text: 'Реализовал дизайн и пользовательские сценарии на Flutter.' },
+      { title: 'Интеграция', text: 'Подключил мобильное приложение к серверной части проекта.' },
     ],
   },
   {
     slug: 'ice-and-flame', name: 'Лёд и пламя', category: 'Веб-сайты', kind: 'Сайт настольной игры',
     subtitle: 'Показать игру ещё до первой партии.',
-    description: 'Презентационный сайт «Градус судьбы»: механика игры, фотографии, форматы участия и заявка.',
-    stack: ['Astro', 'TypeScript', 'Tailwind CSS', 'PHP'],
+    description: 'Лендинг обучающей настольной игры «Градус судьбы»: механика, фотографии и форматы участия.',
+    contribution: 'Полностью разработал лендинг для презентации обучающей настольной игры: визуальную часть, вёрстку и адаптацию для компьютеров и телефонов.',
+    stack: ['Astro', 'TypeScript', 'Tailwind CSS'],
     color: 'ember', mark: '↟', nodes: ['Знакомство', 'Формат игры', 'Заявка'],
     screenshots: [{
       src: 'projects/ice-and-flame/01-home.webp', width: 1440, height: 1050,
@@ -99,17 +105,18 @@ export const projects: Project[] = [
       alt: { ru: 'Лёд и пламя: мобильный первый экран сайта игры', en: 'Ice and Flame: mobile home page' },
       caption: { ru: 'Главная страница — мобильная версия', en: 'Home page — mobile layout' },
     }],
-    context: 'Сайт знакомит с командной игрой «Градус судьбы: Лёд и Пламя». Посетитель видит механику, роли и живые фотографии, выбирает подходящий формат и может оставить заявку.',
+    context: 'Познакомить посетителя с обучающей настольной игрой, её механикой и форматами участия через небольшой презентационный сайт.',
     system: [
       { title: 'Визуальный рассказ', text: 'Лёд и огонь задают композицию. Механика, роли и галерея постепенно раскрывают продукт.' },
       { title: 'Статическая сборка', text: 'Astro формирует готовые страницы. Типизированные данные и компоненты помогают поддерживать содержимое сайта.' },
-      { title: 'Обратная связь', text: 'Форма заявки связана с PHP-обработчиком. Мобильная композиция адаптирована под узкий экран.' },
+      { title: 'Адаптивная вёрстка', text: 'Разработал отображение для компьютеров и телефонов. Лендинг работает без серверной части.' },
     ],
   },
   {
     slug: 'alean', name: 'Alean', category: 'Веб-сайты', kind: 'Курортная недвижимость',
     subtitle: 'Большой курортный проект — в понятной истории.',
     description: 'Сайт Alean Resort Montvert: комплекс, инфраструктура, галерея и обратная связь.',
+    contribution: 'Разработал визуальную и серверную части сайта, формы обратной связи и анимации.',
     stack: ['Nuxt', 'Vue', 'Pinia', 'PHP'],
     color: 'mint', mark: 'A', nodes: ['Комплекс', 'Инфраструктура', 'Обратная связь'],
     screenshots: [
@@ -127,6 +134,7 @@ export const projects: Project[] = [
     slug: 'united-mission', name: 'UnitedMission', category: 'Веб-сайты', kind: 'Консультационные услуги',
     subtitle: 'От знакомства с подходом — к обращению.',
     description: 'Англоязычный сайт с направлениями работы, страницами услуг и формами обращений.',
+    contribution: 'Разработал визуальную и серверную части сайта, а также административную панель для работы с обращениями.',
     stack: ['Nuxt', 'TypeScript', 'Node.js', 'MySQL'],
     color: 'violet', mark: 'UM', nodes: ['Услуги', 'Формы', 'Обработка обращений'],
     screenshots: [
@@ -142,66 +150,72 @@ export const projects: Project[] = [
   },
 ];
 
-type ProjectText = Pick<Project, 'name' | 'kind' | 'description' | 'context' | 'nodes' | 'system'>;
+type ProjectText = Pick<Project, 'name' | 'kind' | 'description' | 'contribution' | 'context' | 'nodes' | 'system'>;
 export const projectEnglish: Record<string, ProjectText> = {
   godendo: {
     name: 'GodenDo', kind: 'Local deals catalogue',
     description: 'A mobile catalogue of discounted products, with search, categories, prices, and store distances, plus favourites and a shopping list.',
+    contribution: 'Designed the interface, built the Flutter mobile app, and integrated it with the project’s backend.',
     context: 'Help people discover offers from nearby stores and decide where to shop. Product cards show the discount, price, store, and distance, while search and categories make the catalogue easier to explore.',
     nodes: ['Offers', 'Stores', 'Shopper'],
     system: [
-      { title: 'Mobile catalogue', text: 'A Flutter app with products, stores, and categories. The home screen highlights discounted offers.' },
-      { title: 'Choosing and planning', text: 'Cards show prices and stores. The codebase also includes favourites, a shopping list, and geolocation support.' },
-      { title: 'Administration', text: 'A Nuxt and Vue dashboard for working with the catalogue, products, and stores.' },
+      { title: 'Interface design', text: 'Designed the mobile catalogue interface for products and store offers.' },
+      { title: 'Mobile development', text: 'Implemented the design and user workflows in Flutter.' },
+      { title: 'Integration', text: 'Connected the mobile app to the project’s backend.' },
     ],
   },
   amelia: {
     name: 'Amelia', kind: 'Mobile flower shop',
     description: 'A flower shop on your phone: bouquets, categories, and a basket, backed by an API and store management tools.',
+    contribution: 'Revived an app that had been abandoned for several years and got it running on iOS and Android. Continued adding features and handling releases on the App Store and Google Play.',
     context: 'Help customers choose a bouquet in the app while staff manage products and orders in a separate dashboard. The backend connects the mobile storefront with the store’s internal tools.',
     nodes: ['Shopping app', 'Store API', 'Dashboard'],
     system: [
-      { title: 'Customer app', text: 'A Flutter application gives customers a mobile interface to the store.' },
-      { title: 'Backend', text: 'An Express API written in TypeScript, with Prisma connecting the data model to the database.' },
-      { title: 'Store management', text: 'A separate Vue web application supports administrative workflows.' },
+      { title: 'Project recovery', text: 'Reviewed dependencies left by an unfinished refactor, replaced incompatible libraries, and fixed typing issues.' },
+      { title: 'iOS and Android', text: 'Restored the Flutter app’s builds and launch on both platforms.' },
+      { title: 'Development and releases', text: 'Added features and handled releases on the App Store and Google Play.' },
     ],
   },
   vratarnitsa: {
     name: 'Vratarnitsa', kind: 'Parish website & mobile services',
     description: 'Parish information, a prayer book, prayer requests, and donations, brought together in web and mobile interfaces.',
+    contribution: 'Independently built the website, administration dashboard, backend, and mobile app. Published the app on the App Store and Google Play, and integrated online payments and recurring donations.',
     context: 'Make parish information and services accessible on desktop and mobile. Visitors can learn about the church and access the services they need, while the backend and administration dashboard support the product’s day-to-day operation.',
     nodes: ['Web & mobile', 'Backend API', 'Management'],
     system: [
-      { title: 'Web interface', text: 'Nuxt and Vue power the customer-facing web experience.' },
-      { title: 'Mobile development', text: 'The project includes Flutter and Capacitor clients from different stages of its development.' },
-      { title: 'Shared backend', text: 'Node.js, Express, and TypeScript, with MySQL and Sequelize for data storage. The administration dashboard connects to the API.' },
+      { title: 'End-to-end development', text: 'Built the website, administration dashboard, backend API, and mobile app without other developers.' },
+      { title: 'Mobile release', text: 'Took the app through publication on the App Store and Google Play. Flutter and Capacitor were used at different stages of the project.' },
+      { title: 'Payments and subscriptions', text: 'Integrated online payments and recurring donation subscriptions.' },
     ],
   },
   save: {
     name: 'Save', kind: 'Security service software',
     description: 'A security service app with PIN access, protected sites, events, and messaging, supported by an administration dashboard.',
+    contribution: 'Designed and built the Flutter mobile app. Designed the server-side support chat system and integrated it into the app.',
     context: 'The application connects customers with a security service. Behind the mobile interface are server-side workflows, protected-site records, and staff tools.',
     nodes: ['Customer', 'API & chat', 'Operator'],
     system: [
-      { title: 'Customer application', text: 'A Flutter client with notifications and backend integration.' },
-      { title: 'Backend evolution', text: 'The system combines a PHP API with a separate chat service built with Node.js and TypeScript.' },
-      { title: 'Staff tools', text: 'A Nuxt dashboard and real-time messaging through Socket.IO.' },
+      { title: 'App design', text: 'Personally designed the mobile application’s interface.' },
+      { title: 'Flutter development', text: 'Built the mobile client in Flutter and connected it to the backend.' },
+      { title: 'Support chat', text: 'Designed the Node.js and TypeScript support chat system using Socket.IO and integrated it into the app.' },
     ],
   },
   'ice-and-flame': {
     name: 'Ice and Flame', kind: 'Board game website',
-    description: 'A website introducing the game: how it works, photos, participation formats, and an enquiry form.',
-    context: 'The website introduces the team-based board game Ice and Flame. Visitors discover its mechanics and roles, see photographs of the game in use, explore the available formats, and make an enquiry.',
+    description: 'A landing page introducing an educational board game, its mechanics, photographs, and participation formats.',
+    contribution: 'Built the entire landing page for the educational board game, including the visual presentation and responsive desktop and mobile layouts.',
+    context: 'Introduce an educational board game, its mechanics, and participation formats through a compact presentation website.',
     nodes: ['Introduction', 'Game formats', 'Enquiry'],
     system: [
       { title: 'A visual story', text: 'Ice and fire shape the visual direction. Mechanics, roles, and a photo gallery gradually introduce the product.' },
       { title: 'Static website', text: 'Astro generates the pages, while typed data and reusable components make the content easier to maintain.' },
-      { title: 'Enquiries', text: 'The form connects to a PHP handler. The layout adapts to mobile screens.' },
+      { title: 'Responsive layout', text: 'Built desktop and mobile layouts. The landing page runs without a backend.' },
     ],
   },
   alean: {
     name: 'Alean', kind: 'Resort property website',
     description: 'A website for Alean Resort Montvert, presenting the development, its amenities, and ways to get in touch.',
+    contribution: 'Developed the website’s frontend and backend, enquiry forms, and animations.',
     context: 'The website presents Alean Resort Montvert. Sections about the development and its amenities help visitors explore the property before making an enquiry.',
     nodes: ['Development', 'Amenities', 'Enquiry'],
     system: [
@@ -213,6 +227,7 @@ export const projectEnglish: Record<string, ProjectText> = {
   'united-mission': {
     name: 'UnitedMission', kind: 'Consultancy website',
     description: 'An English-language website with service pages and enquiry forms.',
+    contribution: 'Developed the website’s frontend, backend, and an administration dashboard for managing enquiries.',
     context: 'The website presents consultancy services for individuals and organisations. Visitors explore the approach and service areas, then choose how to get in touch.',
     nodes: ['Services', 'Forms', 'Enquiry handling'],
     system: [
