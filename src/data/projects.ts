@@ -94,6 +94,10 @@ export const projects: Project[] = [
       src: 'projects/ice-and-flame/01-home.webp', width: 1440, height: 1050,
       alt: { ru: 'Первый экран сайта «Лёд и пламя» с образами льда и огня', en: 'Ice and Flame website hero with ice and fire imagery' },
       caption: { ru: 'Главная страница — снимок локальной сборки', en: 'Home page — captured from the local build' },
+    }, {
+      src: 'projects/ice-and-flame/02-mobile.webp', width: 390, height: 844,
+      alt: { ru: 'Лёд и пламя: мобильный первый экран сайта игры', en: 'Ice and Flame: mobile home page' },
+      caption: { ru: 'Главная страница — мобильная версия', en: 'Home page — mobile layout' },
     }],
     context: 'Сайт знакомит с командной игрой «Градус судьбы: Лёд и Пламя». Посетитель видит механику, роли и живые фотографии, выбирает подходящий формат и может оставить заявку.',
     system: [

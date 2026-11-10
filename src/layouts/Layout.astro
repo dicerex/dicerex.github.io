@@ -11,11 +11,11 @@ const root = `${base}/`;
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefined;
 ---
 <!doctype html>
-<html lang="ru">
+<html lang="ru" data-theme="dark">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#f3f2ed" />
+    <meta name="theme-color" content="#17181b" />
     <meta name="description" content={description} />
     <title>{title}</title>
     <link rel="icon" type="image/svg+xml" href={`${base}/favicon.svg`} />
@@ -30,12 +30,11 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefin
     <meta name="twitter:card" content="summary_large_image" />
     <script is:inline>
       (() => {
-        let savedLanguage, savedTheme;
-        try { savedLanguage = localStorage.getItem('portfolio-language'); savedTheme = localStorage.getItem('portfolio-theme'); } catch {}
+        let savedLanguage;
+        try { savedLanguage = localStorage.getItem('portfolio-language'); } catch {}
         const requested = new URLSearchParams(location.search).get('lang');
         const language = [requested, savedLanguage].find(value => value === 'ru' || value === 'en') || (navigator.language.toLowerCase().startsWith('ru') ? 'ru' : 'en');
         document.documentElement.lang = language;
-        if (savedTheme === 'dark') document.documentElement.dataset.theme = 'dark';
       })();
     </script>
   </head>
@@ -44,19 +43,13 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefin
     <header class="site-header shell">
       <a class="brand" href={root} aria-label="Александр Алексеев — главная" data-en-aria-label="Alexander Alekseev — home"><span class="brand-symbol" aria-hidden="true">а<span>а</span><i>.</i></span><span class="brand-name"><T k="brand" /></span></a>
       <nav aria-label="Главная навигация" data-en-aria-label="Main navigation"><a href={`${root}#work`}><T k="projects" /></a><a href={`${root}#about`}><T k="approach" /></a><a href={`${root}#lab`}><T k="personal" /></a></nav>
-      <div class="header-actions"><div class="language-switch" role="group" aria-label="Язык / Language"><button type="button" data-language="ru" aria-pressed="true" aria-label="Русский">RU</button><button type="button" data-language="en" aria-pressed="false" aria-label="English">EN</button></div><button class="theme-toggle" type="button" aria-label="Включить тёмную тему"><span aria-hidden="true">◐</span></button><a class="header-contact" href="mailto:desidaraiy@gmail.com"><T k="discuss" /> <span aria-hidden="true">↗</span></a></div>
+      <div class="header-actions"><div class="language-switch" role="group" aria-label="Язык / Language"><button type="button" data-language="ru" aria-pressed="true" aria-label="Русский">RU</button><button type="button" data-language="en" aria-pressed="false" aria-label="English">EN</button></div><a class="header-contact" href="mailto:desidaraiy@gmail.com"><T k="discuss" /> <span aria-hidden="true">↗</span></a></div>
     </header>
     <main id="main"><slot /></main>
     <footer class="site-footer shell"><a class="footer-name" href={root}><T k="name" /><span><T k="role" /></span></a><span class="footer-note"><T k="location" /></span><a href="#main"><T k="top" /></a></footer>
     <script>
       import { copy } from '../data/i18n';
-      const themeButton = document.querySelector<HTMLButtonElement>('.theme-toggle');
       const languageButtons = document.querySelectorAll<HTMLButtonElement>('[data-language]');
-      function updateThemeLabel() {
-        const dark = document.documentElement.dataset.theme === 'dark';
-        const en = document.documentElement.lang === 'en';
-        themeButton?.setAttribute('aria-label', en ? (dark ? 'Switch to light theme' : 'Switch to dark theme') : (dark ? 'Включить светлую тему' : 'Включить тёмную тему'));
-      }
       function applyLanguage(language: 'ru' | 'en') {
         document.documentElement.lang = language;
         languageButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.language === language)));
@@ -73,7 +66,6 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefin
         document.querySelector('meta[property="og:description"]')?.setAttribute('content', copy.description[index]);
         document.querySelector('meta[property="og:locale"]')?.setAttribute('content', language === 'en' ? 'en_US' : 'ru_RU');
         document.querySelector('meta[property="og:locale:alternate"]')?.setAttribute('content', language === 'en' ? 'ru_RU' : 'en_US');
-        updateThemeLabel();
         document.dispatchEvent(new CustomEvent('portfolio:language', { detail: language }));
       }
       applyLanguage(document.documentElement.lang === 'en' ? 'en' : 'ru');
@@ -83,11 +75,6 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefin
         try { localStorage.setItem('portfolio-language', language); } catch {}
         const url = new URL(location.href); url.searchParams.set('lang', language); history.replaceState(null, '', url);
       }));
-      themeButton?.addEventListener('click', () => {
-        const dark = document.documentElement.dataset.theme !== 'dark'; document.documentElement.dataset.theme = dark ? 'dark' : 'light';
-        try { localStorage.setItem('portfolio-theme', dark ? 'dark' : 'light'); } catch {}
-        updateThemeLabel();
-      });
     </script>
   </body>
 </html>

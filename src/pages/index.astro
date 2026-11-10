@@ -12,11 +12,7 @@ import avatar from '../assets/avatar.jpeg';
     <div class="hero-topline"><p class="eyebrow"><span class="status-dot"></span><T k="role" /></p><span class="hero-index mono"><T k="edition" /></span></div>
     <div class="hero-grid">
       <div class="hero-copy"><h1 id="hero-heading"><T k="hero" /></h1><p class="hero-lead"><T k="lead" /></p><div class="hero-buttons"><a class="button button-dark" href="#work"><T k="view" /><span>↘</span></a><a class="text-link" href="https://t.me/fckur" target="_blank" rel="noopener noreferrer"><T k="telegram" /> ↗</a></div></div>
-      <aside class="system-card hero-showcase" aria-label="Примеры моих проектов" data-en-aria-label="Examples of my work">
-        <div class="system-card-head"><span class="mono"><T k="realWork" /></span><span class="system-live" aria-hidden="true">↗</span></div>
-        <div class="showcase-stage" aria-hidden="true"><div class="showcase-web"><img src={`${import.meta.env.BASE_URL}images/projects/vratarnitsa/01-desktop.webp`} alt="" width="1680" height="868" fetchpriority="high" /></div><div class="showcase-phone showcase-phone-one"><img src={`${import.meta.env.BASE_URL}images/projects/amelia/01-catalog.webp`} alt="" width="562" height="1280" /></div><div class="showcase-phone showcase-phone-two"><img src={`${import.meta.env.BASE_URL}images/projects/godendo/01-discounts.webp`} alt="" width="540" height="1204" /></div></div>
-        <div class="system-card-foot"><span><T k="logic" /><br /> <strong><T k="value" /></strong></span><span class="mono">MOBILE × WEB</span></div>
-      </aside>
+      <figure class="hero-portrait"><span class="portrait-kicker mono"><T k="hello" /></span><Image src={avatar} alt="Александр Алексеев" data-en-alt="Alexander Alekseev" widths={[360, 520, 720]} sizes="(max-width: 760px) 88vw, 38vw" width={520} height={520} format="webp" loading="eager" fetchpriority="high" /><figcaption><strong><T k="name" /></strong><span><T k="location" /></span></figcaption><span class="portrait-year mono">2015 — 2026</span></figure>
     </div>
     <div class="hero-bottom"><span><T k="focus" /></span><a href="#work" aria-label="Перейти к проектам" data-en-aria-label="Go to projects">↓</a></div>
   </section>
@@ -58,9 +54,4 @@ import avatar from '../assets/avatar.jpeg';
     updateStatus();
   }));
   document.addEventListener('portfolio:language', updateStatus);
-  document.querySelectorAll<HTMLButtonElement>('[data-expand]').forEach(button => {
-    const details = document.getElementById(`details-${button.dataset.expand}`) as HTMLDetailsElement | null;
-    button.addEventListener('click', () => { if (details) details.open = !details.open; });
-    details?.addEventListener('toggle', () => { button.setAttribute('aria-expanded', String(details.open)); });
-  });
 </script>
