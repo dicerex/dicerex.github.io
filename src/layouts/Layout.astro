@@ -2,8 +2,10 @@
 import '@fontsource-variable/manrope';
 import '@fontsource-variable/jetbrains-mono';
 import '../styles/global.css';
+import T from '../components/T.astro';
+import { copy } from '../data/i18n';
 interface Props { title?: string; description?: string }
-const { title = 'Александр Алексеев — разработчик полного цикла', description = 'Node.js, TypeScript, мобильные приложения и веб-системы. Разработка и сопровождение цифровых продуктов с 2015 года.' } = Astro.props;
+const { title = copy.title[0], description = copy.description[0] } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const root = `${base}/`;
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefined;
@@ -20,41 +22,71 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefin
     {canonical && <link rel="canonical" href={canonical} />}
     <meta property="og:type" content="website" />
     <meta property="og:locale" content="ru_RU" />
+    <meta property="og:locale:alternate" content="en_US" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     {canonical && <meta property="og:url" content={canonical} />}
     {Astro.site && <meta property="og:image" content={new URL(`${base}/images/social.png`, Astro.site).href} />}
     <meta name="twitter:card" content="summary_large_image" />
     <script is:inline>
-      try { if (localStorage.getItem('portfolio-theme') === 'dark') document.documentElement.dataset.theme = 'dark'; } catch {}
+      (() => {
+        let savedLanguage, savedTheme;
+        try { savedLanguage = localStorage.getItem('portfolio-language'); savedTheme = localStorage.getItem('portfolio-theme'); } catch {}
+        const requested = new URLSearchParams(location.search).get('lang');
+        const language = [requested, savedLanguage].find(value => value === 'ru' || value === 'en') || (navigator.language.toLowerCase().startsWith('ru') ? 'ru' : 'en');
+        document.documentElement.lang = language;
+        if (savedTheme === 'dark') document.documentElement.dataset.theme = 'dark';
+      })();
     </script>
   </head>
   <body>
-    <a class="skip-link" href="#main">К содержимому</a>
+    <a class="skip-link" href="#main"><T k="skip" /></a>
     <header class="site-header shell">
-      <a class="brand" href={root} aria-label="Александр Алексеев — главная"><span class="brand-symbol">а<span>а</span><i>.</i></span><span class="brand-name">Александр<br />Алексеев</span></a>
-      <nav aria-label="Главная навигация">
-        <a href={`${root}#work`}>Проекты</a><a href={`${root}#about`}>Подход</a><a href={`${root}#lab`}>Личное</a>
-      </nav>
-      <div class="header-actions"><button class="theme-toggle" type="button" aria-label="Включить тёмную тему" title="Сменить тему"><span aria-hidden="true">◐</span></button><a class="header-contact" href="mailto:desidaraiy@gmail.com">Обсудить задачу <span aria-hidden="true">↗</span></a></div>
+      <a class="brand" href={root} aria-label="Александр Алексеев — главная" data-en-aria-label="Alexander Alekseev — home"><span class="brand-symbol" aria-hidden="true">а<span>а</span><i>.</i></span><span class="brand-name"><T k="brand" /></span></a>
+      <nav aria-label="Главная навигация" data-en-aria-label="Main navigation"><a href={`${root}#work`}><T k="projects" /></a><a href={`${root}#about`}><T k="approach" /></a><a href={`${root}#lab`}><T k="personal" /></a></nav>
+      <div class="header-actions"><div class="language-switch" role="group" aria-label="Язык / Language"><button type="button" data-language="ru" aria-pressed="true" aria-label="Русский">RU</button><button type="button" data-language="en" aria-pressed="false" aria-label="English">EN</button></div><button class="theme-toggle" type="button" aria-label="Включить тёмную тему"><span aria-hidden="true">◐</span></button><a class="header-contact" href="mailto:desidaraiy@gmail.com"><T k="discuss" /> <span aria-hidden="true">↗</span></a></div>
     </header>
     <main id="main"><slot /></main>
-    <footer class="site-footer shell">
-      <a class="footer-name" href={root}>Александр Алексеев<span>Разработчик полного цикла</span></a>
-      <span class="footer-note">Иркутск · Работаю удалённо</span>
-      <a href="#main">Наверх ↑</a>
-    </footer>
+    <footer class="site-footer shell"><a class="footer-name" href={root}><T k="name" /><span><T k="role" /></span></a><span class="footer-note"><T k="location" /></span><a href="#main"><T k="top" /></a></footer>
     <script>
-      const button = document.querySelector<HTMLButtonElement>('.theme-toggle');
-      function updateLabel() {
-        button?.setAttribute('aria-label', document.documentElement.dataset.theme === 'dark' ? 'Включить светлую тему' : 'Включить тёмную тему');
+      import { copy } from '../data/i18n';
+      const themeButton = document.querySelector<HTMLButtonElement>('.theme-toggle');
+      const languageButtons = document.querySelectorAll<HTMLButtonElement>('[data-language]');
+      function updateThemeLabel() {
+        const dark = document.documentElement.dataset.theme === 'dark';
+        const en = document.documentElement.lang === 'en';
+        themeButton?.setAttribute('aria-label', en ? (dark ? 'Switch to light theme' : 'Switch to dark theme') : (dark ? 'Включить светлую тему' : 'Включить тёмную тему'));
       }
-      updateLabel();
-      button?.addEventListener('click', () => {
-        const dark = document.documentElement.dataset.theme !== 'dark';
-        document.documentElement.dataset.theme = dark ? 'dark' : 'light';
+      function applyLanguage(language: 'ru' | 'en') {
+        document.documentElement.lang = language;
+        languageButtons.forEach(button => button.setAttribute('aria-pressed', String(button.dataset.language === language)));
+        for (const attribute of ['aria-label', 'alt', 'title']) {
+          document.querySelectorAll<HTMLElement>(`[data-en-${attribute}]`).forEach(element => {
+            if (!element.hasAttribute(`data-ru-${attribute}`)) element.setAttribute(`data-ru-${attribute}`, element.getAttribute(attribute) ?? '');
+            element.setAttribute(attribute, element.getAttribute(`data-${language}-${attribute}`) ?? '');
+          });
+        }
+        const index = language === 'en' ? 1 : 0;
+        document.title = copy.title[index];
+        document.querySelector('meta[name="description"]')?.setAttribute('content', copy.description[index]);
+        document.querySelector('meta[property="og:title"]')?.setAttribute('content', copy.title[index]);
+        document.querySelector('meta[property="og:description"]')?.setAttribute('content', copy.description[index]);
+        document.querySelector('meta[property="og:locale"]')?.setAttribute('content', language === 'en' ? 'en_US' : 'ru_RU');
+        document.querySelector('meta[property="og:locale:alternate"]')?.setAttribute('content', language === 'en' ? 'ru_RU' : 'en_US');
+        updateThemeLabel();
+        document.dispatchEvent(new CustomEvent('portfolio:language', { detail: language }));
+      }
+      applyLanguage(document.documentElement.lang === 'en' ? 'en' : 'ru');
+      languageButtons.forEach(button => button.addEventListener('click', () => {
+        const language = button.dataset.language === 'en' ? 'en' : 'ru';
+        applyLanguage(language);
+        try { localStorage.setItem('portfolio-language', language); } catch {}
+        const url = new URL(location.href); url.searchParams.set('lang', language); history.replaceState(null, '', url);
+      }));
+      themeButton?.addEventListener('click', () => {
+        const dark = document.documentElement.dataset.theme !== 'dark'; document.documentElement.dataset.theme = dark ? 'dark' : 'light';
         try { localStorage.setItem('portfolio-theme', dark ? 'dark' : 'light'); } catch {}
-        updateLabel();
+        updateThemeLabel();
       });
     </script>
   </body>

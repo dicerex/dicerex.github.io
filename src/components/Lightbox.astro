@@ -1,0 +1,32 @@
+---
+import T from './T.astro';
+import { projects } from '../data/projects';
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const galleries = Object.fromEntries(projects.filter(p => p.screenshots?.length).map(p => [p.slug, p.screenshots?.map(s => ({ ...s, src: `${base}/images/${s.src}` }))]));
+---
+<dialog class="lightbox" aria-labelledby="lightbox-caption"><div class="lightbox-toolbar"><span class="mono" id="lightbox-counter"></span><button type="button" data-lightbox-close><T k="close" /> <span aria-hidden="true">×</span></button></div><div class="lightbox-stage"><button type="button" data-lightbox-prev aria-label="Предыдущий снимок" data-en-aria-label="Previous screenshot">←</button><img class="lightbox-image" alt="" /><button type="button" data-lightbox-next aria-label="Следующий снимок" data-en-aria-label="Next screenshot">→</button></div><p id="lightbox-caption"></p></dialog>
+<script type="application/json" id="gallery-data" set:html={JSON.stringify(galleries).replace(/</g, '\u003c')} />
+<script>
+  import type { Screenshot } from '../data/projects';
+  const dialog = document.querySelector<HTMLDialogElement>('.lightbox');
+  const image = dialog?.querySelector<HTMLImageElement>('.lightbox-image');
+  const caption = dialog?.querySelector<HTMLElement>('#lightbox-caption');
+  const counter = dialog?.querySelector<HTMLElement>('#lightbox-counter');
+  const previous = dialog?.querySelector<HTMLButtonElement>('[data-lightbox-prev]');
+  const next = dialog?.querySelector<HTMLButtonElement>('[data-lightbox-next]');
+  const galleries: Record<string, Screenshot[]> = JSON.parse(document.getElementById('gallery-data')?.textContent || '{}');
+  let active: Screenshot[] = []; let index = 0; let trigger: HTMLButtonElement | null = null;
+  function render() {
+    const shot = active[index]; if (!shot || !image || !caption || !counter) return;
+    const language = document.documentElement.lang === 'en' ? 'en' : 'ru'; image.src = shot.src; image.alt = shot.alt[language]; caption.textContent = shot.caption[language]; counter.textContent = `${index + 1} / ${active.length}`;
+    if (previous) previous.hidden = active.length < 2; if (next) next.hidden = active.length < 2;
+  }
+  function move(direction: number) { index = (index + direction + active.length) % active.length; render(); }
+  document.querySelectorAll<HTMLButtonElement>('[data-gallery]').forEach(button => button.addEventListener('click', () => { active = galleries[button.dataset.gallery ?? ''] ?? []; index = Number(button.dataset.imageIndex ?? 0); if (!active[index] || !dialog) return; trigger = button; render(); dialog.showModal(); document.documentElement.classList.add('gallery-open'); }));
+  dialog?.querySelector('[data-lightbox-close]')?.addEventListener('click', () => dialog.close());
+  dialog?.addEventListener('close', () => { document.documentElement.classList.remove('gallery-open'); trigger?.focus({ preventScroll: true }); });
+  dialog?.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
+  dialog?.addEventListener('keydown', event => { if (active.length > 1 && (event.key === 'ArrowLeft' || event.key === 'ArrowRight')) { event.preventDefault(); move(event.key === 'ArrowLeft' ? -1 : 1); } });
+  previous?.addEventListener('click', () => move(-1)); next?.addEventListener('click', () => move(1));
+  document.addEventListener('portfolio:language', () => { if (dialog?.open) render(); });
+</script>

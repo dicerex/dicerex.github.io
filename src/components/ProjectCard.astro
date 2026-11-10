@@ -1,0 +1,20 @@
+---
+import { type Project, projectEnglish } from '../data/projects';
+import T from './T.astro';
+import ProjectArt from './ProjectArt.astro';
+interface Props { project: Project; index: number }
+const { project, index } = Astro.props;
+const en = projectEnglish[project.slug];
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+<article id={`project-${project.slug}`} class="project-card" data-category={project.category === 'Приложения' ? 'apps' : 'websites'}>
+  <button type="button" class="project-visual-link" data-expand={project.slug} aria-expanded="false" aria-controls={`details-${project.slug}`} aria-label={`О проекте ${project.name}`} data-en-aria-label={`About ${en.name}`}><ProjectArt project={project} /><span class="project-open" aria-hidden="true">+</span></button>
+  <div class="project-information"><div class="project-meta"><span class="mono">{String(index + 1).padStart(2, '0')} / <T ru={project.kind} en={en.kind} /></span><span><T k={project.category === 'Приложения' ? 'apps' : 'websites'} /></span></div>
+  <h3><T ru={project.name} en={en.name} /></h3><p><T ru={project.description} en={en.description} /></p>
+  <ul class="tags" aria-label="Технологии" data-en-aria-label="Technologies">{project.stack.map(tag => <li>{tag}</li>)}</ul>
+  <details class="project-details" id={`details-${project.slug}`} data-project={project.slug}><summary><T k="details" /><span aria-hidden="true">+</span></summary><div class="project-details-body">
+    <h4><T k="context" /></h4><p><T ru={project.context} en={en.context} /></p>
+    {project.screenshots?.length && <section class="project-gallery" aria-label="Экраны продукта" data-en-aria-label="Product screenshots"><h4><T k="gallery" /> <span class="mono">{String(project.screenshots.length).padStart(2, '0')}</span></h4><div class="gallery-strip">{project.screenshots.map((shot, i) => <figure><button type="button" class="gallery-image" data-gallery={project.slug} data-image-index={i} aria-label={`Увеличить снимок: ${shot.alt.ru}`} data-en-aria-label={`Enlarge screenshot: ${shot.alt.en}`}><img src={`${base}/images/${shot.src}`} width={shot.width} height={shot.height} alt={shot.alt.ru} data-en-alt={shot.alt.en} loading="lazy" /><span aria-hidden="true">⤢</span></button><figcaption><T ru={shot.caption.ru} en={shot.caption.en} /></figcaption></figure>)}</div></section>}
+    <h4><T k="system" /></h4><div class="project-parts">{project.system.map((part, i) => <section><span class="mono">0{i + 1}</span><div><h5><T ru={part.title} en={en.system[i].title} /></h5><p><T ru={part.text} en={en.system[i].text} /></p></div></section>)}</div>
+  </div></details></div>
+</article>

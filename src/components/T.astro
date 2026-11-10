@@ -1,0 +1,7 @@
+---
+import { copy, type CopyKey } from '../data/i18n';
+interface Props { k?: CopyKey; ru?: string; en?: string }
+const { k, ru, en } = Astro.props;
+const pair = k ? copy[k] : [ru ?? '', en ?? ru ?? ''];
+---
+<span class="i18n-ru" lang="ru" set:html={pair[0]} /><span class="i18n-en" lang="en" set:html={pair[1]} />

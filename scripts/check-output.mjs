@@ -8,12 +8,14 @@ const [owner, name] = repository?.split('/') ?? [];
 const userSite = name?.toLowerCase() === `${owner}.github.io`.toLowerCase();
 const base = (process.env.BASE_PATH || (name && !userSite ? `/${name}/` : '/')).replace(/\/$/, '');
 let count = 0;
+const allowedPages = new Set([join(root, 'index.html'), join(root, '404.html')]);
 
 async function walk(directory) {
   for (const entry of await readdir(directory, { withFileTypes: true })) {
     const path = join(directory, entry.name);
     if (entry.isDirectory()) { await walk(path); continue; }
     if (!entry.name.endsWith('.html')) continue;
+    if (!allowedPages.has(path)) errors.push(`${path}: portfolio content must stay on one page`);
     count++;
     const html = await readFile(path, 'utf8');
     for (const match of html.matchAll(/(?:href|src)="([^"\s]+)"/g)) {

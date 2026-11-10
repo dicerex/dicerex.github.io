@@ -1,7 +1,8 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import T from '../components/T.astro';
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 ---
 <Layout title="Страница не найдена — Александр Алексеев">
-  <section class="not-found shell"><p class="eyebrow">404 / МАРШРУТ НЕ НАЙДЕН</p><h1>Кажется, здесь<br />ещё нет кода<span class="orange">.</span></h1><p>Проекты и контакты — на главной странице.</p><a class="button button-dark" href={`${base}/`}>На главную ↗</a></section>
+  <section class="not-found shell"><p class="eyebrow">404</p><h1><T k="missing" /><span class="orange">.</span></h1><p><T k="missingText" /></p><a class="button button-dark" href={`${base}/`}><T k="home" /> ↗</a></section>
 </Layout>
