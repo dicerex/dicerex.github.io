@@ -36,6 +36,7 @@ export const copy = {
   hello: ['ДАВАЙТЕ ЗНАКОМИТЬСЯ', 'NICE TO MEET YOU'],
   context: ['Задача продукта', 'The product’s purpose'],
   contribution: ['Мой вклад', 'My contribution'],
+  visitWebsite: ['Посмотреть сайт', 'Visit website'],
   system: ['Из чего состоит', 'How it fits together'],
   gallery: ['Экраны продукта', 'Product screenshots'],
   enlarge: ['Увеличить снимок', 'Enlarge screenshot'],

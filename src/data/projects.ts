@@ -6,6 +6,12 @@ export type Screenshot = {
   caption: { ru: string; en: string };
 };
 
+export const engagements = {
+  manilov: { ru: 'Разработка для ИП Манилов Тимур Викторович', en: 'Developed for Timur Viktorovich Manilov, Sole Proprietor' },
+  pushmobile: { ru: 'Разработка для ООО «Pushmobile»', en: 'Developed for Pushmobile LLC' },
+  freelance: { ru: 'Частный фриланс', en: 'Independent freelance project' },
+} as const;
+
 export type Project = {
   slug: string;
   name: string;
@@ -14,6 +20,8 @@ export type Project = {
   subtitle: string;
   description: string;
   contribution: string;
+  engagement: keyof typeof engagements;
+  website?: string;
   stack: string[];
   color: string;
   mark: string;
@@ -28,6 +36,7 @@ export type Project = {
 export const projects: Project[] = [
   {
     slug: 'amelia', name: 'Amelia', category: 'Приложения', kind: 'Мобильный цветочный магазин',
+    engagement: 'manilov',
     subtitle: 'Магазин в телефоне. Управление — в браузере.',
     description: 'Цветочный магазин в телефоне: букеты, категории и корзина. За приложением — API и инструменты управления магазином.',
     contribution: 'Восстановил приложение, заброшенное на несколько лет, и запустил его на iOS и Android. Затем развивал функциональность и занимался публикацией в App Store и Google Play.',
@@ -43,6 +52,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'vratarnitsa', name: 'Вратарница', category: 'Приложения', kind: 'Сайт и мобильный сервис прихода',
+    engagement: 'manilov',
     subtitle: 'Сайт, приложение и управление в одной системе.',
     description: 'Цифровой сервис прихода: информация о храме, молитвослов, подача записок и пожертвования. Сайт и мобильный интерфейс связаны с общей системой.',
     contribution: 'Самостоятельно разработал сайт, административную панель, серверную часть и мобильное приложение. Опубликовал приложение в App Store и Google Play, подключил онлайн-оплату и подписки на пожертвования.',
@@ -61,6 +71,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'save', name: 'Сэйв', category: 'Приложения', kind: 'Сервис охранного предприятия',
+    engagement: 'pushmobile',
     subtitle: 'Связь клиента с сервисом — в приложении.',
     description: 'Приложение охранного сервиса: доступ по PIN-коду, объекты, события и связь с компанией. Для сотрудников — административная панель.',
     contribution: 'Спроектировал дизайн и разработал мобильное приложение на Flutter. Спроектировал серверную чат-систему со службой поддержки и интегрировал её в приложение.',
@@ -76,6 +87,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'godendo', name: 'ГоденДо', category: 'Приложения', kind: 'Каталог скидок поблизости',
+    engagement: 'pushmobile',
     subtitle: 'Предложения магазинов — в одном приложении.',
     description: 'Мобильный каталог товаров со скидками: категории, поиск, цены и расстояние до магазина. Рядом — избранное и список покупок.',
     contribution: 'Спроектировал дизайн, разработал мобильное приложение на Flutter и интегрировал серверную часть.',
@@ -91,6 +103,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'ice-and-flame', name: 'Лёд и пламя', category: 'Веб-сайты', kind: 'Сайт настольной игры',
+    engagement: 'freelance',
     subtitle: 'Показать игру ещё до первой партии.',
     description: 'Лендинг обучающей настольной игры «Градус судьбы»: механика, фотографии и форматы участия.',
     contribution: 'Полностью разработал лендинг для презентации обучающей настольной игры: визуальную часть, вёрстку и адаптацию для компьютеров и телефонов.',
@@ -114,6 +127,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'alean', name: 'Alean', category: 'Веб-сайты', kind: 'Курортная недвижимость',
+    engagement: 'freelance',
     subtitle: 'Большой курортный проект — в понятной истории.',
     description: 'Сайт Alean Resort Montvert: комплекс, инфраструктура, галерея и обратная связь.',
     contribution: 'Разработал визуальную и серверную части сайта, формы обратной связи и анимации.',
@@ -132,6 +146,7 @@ export const projects: Project[] = [
   },
   {
     slug: 'united-mission', name: 'UnitedMission', category: 'Веб-сайты', kind: 'Консультационные услуги',
+    engagement: 'freelance',
     subtitle: 'От знакомства с подходом — к обращению.',
     description: 'Англоязычный сайт с направлениями работы, страницами услуг и формами обращений.',
     contribution: 'Разработал визуальную и серверную части сайта, а также административную панель для работы с обращениями.',
@@ -148,10 +163,74 @@ export const projects: Project[] = [
       { title: 'Поддержка продукта', text: 'TypeScript, проверка входных данных, тесты серверных сценариев и поисковые метаданные.' },
     ],
   },
+  {
+    slug: 'horosho', name: 'HOROSHO', category: 'Веб-сайты', kind: 'Архитектура и дизайн интерьеров',
+    engagement: 'manilov',
+    website: 'https://horoshodesign.ru/',
+    subtitle: 'Новый визуальный язык для действующего сайта.',
+    description: 'Сайт архитектурного бюро и студии интерьеров: проекты, направления работы и услуги.',
+    contribution: 'Выполнил редизайн действующего сайта, перевёл интерфейс на новую дизайн-систему и заново реализовал адаптивную вёрстку.',
+    stack: ['Nuxt', 'Vue', 'HTML', 'CSS'],
+    color: 'sand', mark: 'H', nodes: ['Проекты', 'Услуги', 'Обращение'],
+    context: 'Обновить представление архитектурного бюро и его проектов, объединив страницы в единую визуальную систему для компьютеров и телефонов.',
+    screenshots: [
+      { src: 'projects/horosho/01-desktop.webp', width: 1440, height: 1000, alt: { ru: 'HOROSHO: главная страница архитектурного бюро', en: 'HOROSHO: architecture and interior design studio home page' }, caption: { ru: 'Действующий сайт — версия для компьютера', en: 'Live website — desktop layout' } },
+      { src: 'projects/horosho/02-mobile.webp', width: 390, height: 844, alt: { ru: 'HOROSHO: мобильная версия сайта архитектурного бюро', en: 'HOROSHO: mobile architecture studio website' }, caption: { ru: 'Действующий сайт — мобильная версия', en: 'Live website — mobile layout' } },
+    ],
+    system: [
+      { title: 'Редизайн продукта', text: 'Обновил визуальную подачу существующего сайта архитектурного бюро.' },
+      { title: 'Дизайн-система', text: 'Привёл интерфейс к новой дизайн-системе с согласованной типографикой, компонентами и оформлением страниц.' },
+      { title: 'Адаптивная вёрстка', text: 'Заново реализовал вёрстку для компьютеров и мобильных устройств.' },
+    ],
+  },
+  {
+    slug: 'bestphone', name: 'Bestphone', category: 'Веб-сайты', kind: 'Интернет-магазин электроники',
+    engagement: 'manilov',
+    website: 'https://bestphone.ru/',
+    subtitle: 'Новый интерфейс поверх действующего магазина.',
+    description: 'Интернет-магазин смартфонов и электроники: каталог устройств, категории товаров и услуги магазина.',
+    contribution: 'Выполнил редизайн магазина, перевёл интерфейс на новую дизайн-систему и переработал адаптивную вёрстку. Интегрировал существующую серверную логику в новый интерфейс.',
+    stack: ['1С-Битрикс', 'PHP', 'JavaScript', 'HTML', 'CSS'],
+    color: 'blue', mark: 'B', nodes: ['Новый интерфейс', 'Интеграция', 'Действующий сервер'],
+    context: 'Обновить визуальную часть действующего интернет-магазина и связать новый интерфейс с существующей серверной частью.',
+    screenshots: [
+      { src: 'projects/bestphone/01-desktop.webp', width: 1440, height: 1000, alt: { ru: 'Bestphone: главная страница интернет-магазина электроники', en: 'Bestphone: electronics store home page' }, caption: { ru: 'Действующий сайт — версия для компьютера', en: 'Live website — desktop layout' } },
+      { src: 'projects/bestphone/02-mobile.webp', width: 390, height: 844, alt: { ru: 'Bestphone: мобильная версия интернет-магазина электроники', en: 'Bestphone: mobile electronics store layout' }, caption: { ru: 'Действующий сайт — мобильная версия', en: 'Live website — mobile layout' } },
+    ],
+    system: [
+      { title: 'Обновление интерфейса', text: 'Переработал визуальную часть магазина и перенёс её на новую дизайн-систему.' },
+      { title: 'Адаптивная вёрстка', text: 'Заново реализовал вёрстку и её отображение на компьютерах и телефонах.' },
+      { title: 'Интеграция с сервером', text: 'Связал новый фронтенд с существующими компонентами и серверной логикой магазина на 1С-Битрикс.' },
+    ],
+  },
 ];
 
 type ProjectText = Pick<Project, 'name' | 'kind' | 'description' | 'contribution' | 'context' | 'nodes' | 'system'>;
 export const projectEnglish: Record<string, ProjectText> = {
+  horosho: {
+    name: 'HOROSHO', kind: 'Architecture & interior design',
+    description: 'An architecture and interior design studio website presenting its projects, services, and areas of expertise.',
+    contribution: 'Redesigned the existing website, moved the interface to a new design system, and rebuilt its responsive layouts.',
+    context: 'Refresh the studio’s presentation and bring its pages into a consistent visual system for desktop and mobile.',
+    nodes: ['Projects', 'Services', 'Enquiries'],
+    system: [
+      { title: 'Product redesign', text: 'Updated the visual presentation of the existing architecture studio website.' },
+      { title: 'Design system', text: 'Applied a new design system with consistent typography, components, and page styling.' },
+      { title: 'Responsive implementation', text: 'Rebuilt the layouts for desktop and mobile devices.' },
+    ],
+  },
+  bestphone: {
+    name: 'Bestphone', kind: 'Electronics store',
+    description: 'An online smartphone and electronics store with product categories, a device catalogue, and store services.',
+    contribution: 'Redesigned the store, introduced a new design system, and rebuilt its responsive layouts. Integrated the existing backend logic with the new frontend.',
+    context: 'Refresh an established online store’s visual experience and connect the new interface to its existing backend.',
+    nodes: ['New frontend', 'Integration', 'Existing backend'],
+    system: [
+      { title: 'Interface refresh', text: 'Reworked the store’s visual presentation and moved it to a new design system.' },
+      { title: 'Responsive layouts', text: 'Rebuilt the layouts for desktop and mobile screens.' },
+      { title: 'Backend integration', text: 'Connected the new frontend to the store’s existing 1C-Bitrix components and backend logic.' },
+    ],
+  },
   godendo: {
     name: 'GodenDo', kind: 'Local deals catalogue',
     description: 'A mobile catalogue of discounted products, with search, categories, prices, and store distances, plus favourites and a shopping list.',

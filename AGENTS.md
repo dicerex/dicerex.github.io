@@ -2,7 +2,9 @@
 
 - This directory (`www`) is the Git repository root and the complete portfolio project. Keep source, tooling, dependencies, previews and generated builds here.
 - Materials in the parent directory are private research inputs. Do not add them to Git, copy them wholesale, or publish the original CV.
-- Public commercial projects are selected in `src/data/projects.ts`: Amelia, Вратарница, Сэйв, Alean, UnitedMission, «Лёд и пламя», and GodenDo (explicitly approved after the owner supplied a screenshot). Do not add other client work without the owner's permission.
+- Public commercial projects are selected in `src/data/projects.ts`: Amelia, Вратарница, Сэйв, Alean, UnitedMission, «Лёд и пламя», GodenDo, HOROSHO (horoshodesign.ru) and Bestphone (bestphone.ru). The owner explicitly approved all nine. Do not add other client work without the owner's permission.
+- Preserve the owner's visible engagement labels: Amelia, Вратарница, HOROSHO and Bestphone — development for ИП Манилов Тимур Викторович; Сэйв and GodenDo — development for ООО «Pushmobile»; Alean, «Лёд и пламя» and UnitedMission — independent freelance projects. Translate the labels for English visitors.
+- HOROSHO and Bestphone are redesigns of existing products, with a new design system and rebuilt responsive layouts. Bestphone also includes integration of the existing backend with the new frontend; do not claim the backend was rewritten.
 - Keep the portfolio on one page, dark only. Show one commercial project per row. Descriptions and real screenshots must be visible without opening details; only technical information may be collapsed.
 - The hero must prominently show the owner's portrait. Keep the tone conversational and avoid generic marketing slogans.
 - Website presentations should visibly combine desktop and mobile screenshots with layered, accessible controls; keep miniature phone frames for apps. Screenshot galleries open in a dialog. Do not restore separate project pages.
